@@ -1,0 +1,58 @@
+/* Shared by the parent, tutor and admin dashboards. */
+.page { padding-top: clamp(2rem, 5vw, 3rem); }
+.head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem 2rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--rule); }
+.head h1 { font-size: var(--t-3xl); font-weight: 450; }
+.head p { margin-top: 0.4rem; color: var(--ink-2); }
+.actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+.section { margin-top: 2.5rem; }
+.sectionHead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.75rem 1.5rem; margin-bottom: 1rem; }
+.sectionHead h2 { font-size: var(--t-xl); }
+
+/* Status panel: a sheet with a coloured margin line on the left, like a marked page */
+.status {
+  position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem;
+  padding: 1.4rem 1.5rem 1.4rem 1.9rem; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--rule);
+}
+.status::before { content: ""; position: absolute; left: 0.85rem; top: 1rem; bottom: 1rem; width: 2px; border-radius: 2px; background: var(--tone, var(--royal)); }
+.status h2 { font-size: var(--t-xl); }
+.status p { margin-top: 0.3rem; color: var(--ink-2); max-width: 60ch; }
+.note { margin-top: 0.75rem !important; padding: 0.7rem 0.9rem; border-radius: var(--r-sm); background: var(--margin-wash); color: #8a2a24 !important; font-size: var(--t-sm); }
+.note strong { display: block; margin-bottom: 0.15rem; }
+
+/* Filter tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 0.25rem; padding: 0.25rem; border-radius: var(--r-md); background: var(--paper-2); width: fit-content; max-width: 100%; }
+.tab { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.4rem 0.8rem; border-radius: 9px; font-size: var(--t-sm); color: var(--ink-2); text-decoration: none; white-space: nowrap; }
+.tab:hover { color: var(--ink); }
+.tab[aria-current="page"] { background: var(--surface); color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgb(24 33 58 / 0.08), 0 0 0 1px var(--rule); }
+.tabCount { font-size: var(--t-xs); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* Lists of items (requests, tutors, messages) */
+.list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.75rem 2rem; padding: 1.4rem 0; border-bottom: 1px solid var(--rule); }
+.itemMain { display: grid; gap: 0.35rem; min-width: 0; }
+.itemTitle { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.75rem; font-family: var(--serif); font-size: var(--t-lg); font-weight: 500; }
+.itemMeta { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; font-size: var(--t-sm); color: var(--ink-2); }
+.itemMeta a { color: var(--royal); font-weight: 600; text-decoration: none; }
+.itemMeta a:hover { text-decoration: underline; }
+.quote { color: var(--ink-2); max-width: 64ch; padding-left: 0.85rem; border-left: 2px solid var(--rule-strong); font-size: var(--t-sm); white-space: pre-line; }
+.itemSide { display: grid; justify-items: end; align-content: start; gap: 0.6rem; text-align: right; }
+.time { font-size: var(--t-xs); color: var(--muted); white-space: nowrap; }
+
+.empty { padding: 2.5rem 0; color: var(--ink-2); display: grid; gap: 0.9rem; justify-items: start; max-width: 50ch; }
+.empty h3 { font-family: var(--serif); font-size: var(--t-xl); font-weight: 500; color: var(--ink); }
+
+/* Figures row (admin) */
+.figures { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--rule); border-radius: var(--r-lg); background: var(--surface); }
+.figure { padding: 1.1rem 1.25rem; }
+.figure + .figure { border-left: 1px solid var(--rule); }
+.figure dt { font-size: var(--t-xs); color: var(--muted); }
+.figure dd { margin: 0.2rem 0 0; font-family: var(--serif); font-size: var(--t-2xl); line-height: 1.1; font-variant-numeric: lining-nums tabular-nums; }
+
+@media (max-width: 720px) {
+  .item { grid-template-columns: 1fr; }
+  .itemSide { justify-items: start; text-align: left; }
+  .figures { grid-template-columns: 1fr 1fr; }
+  .figure:nth-child(3) { border-left: 0; }
+  .figure:nth-child(n + 3) { border-top: 1px solid var(--rule); }
+}

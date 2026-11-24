@@ -1,0 +1,40 @@
+.page { padding-top: clamp(2rem, 5vw, 3.5rem); }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1.25rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule); }
+.head h1 { font-size: var(--t-3xl); }
+.count { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+.layout { display: grid; grid-template-columns: 290px 1fr; gap: clamp(2rem, 4vw, 3.5rem); padding-top: 2rem; }
+
+.aside { position: sticky; top: 92px; align-self: start; max-height: calc(100vh - 110px); overflow-y: auto; padding-right: 0.5rem; scrollbar-width: thin; }
+.filterToggle { display: none; }
+.filters { display: grid; gap: 1.6rem; padding-bottom: 1rem; }
+.group { border: 0; margin: 0; padding: 0; min-width: 0; }
+.group legend { font-size: var(--t-sm); font-weight: 600; margin-bottom: 0.6rem; padding: 0; }
+.clear {
+  justify-self: start; background: none; border: 0; padding: 0; cursor: pointer;
+  color: var(--royal); font-size: var(--t-sm); font-weight: 600; text-decoration: underline; text-underline-offset: 3px;
+}
+
+.results { min-width: 0; transition: opacity 0.2s var(--ease); }
+.results[data-pending] { opacity: 0.45; pointer-events: none; }
+.order { font-size: var(--t-xs); color: var(--muted); margin-bottom: 0.25rem; }
+.list { list-style: none; margin: 0; padding: 0; }
+
+.pager { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); color: var(--ink-2); font-size: var(--t-sm); }
+
+.empty { padding: 3rem 0; max-width: 46ch; display: grid; gap: 0.9rem; justify-items: start; }
+.empty h2 { font-size: var(--t-xl); }
+.empty p { color: var(--ink-2); }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; padding-top: 1rem; }
+  .aside { position: static; max-height: none; overflow: visible; padding: 0; }
+  .filterToggle { display: block; }
+  .filterToggle summary {
+    display: inline-flex; align-items: center; height: 42px; padding: 0 1rem; cursor: pointer; list-style: none;
+    border: 1px solid var(--rule-strong); border-radius: var(--r-md); font-weight: 600; font-size: var(--t-sm); background: var(--surface);
+  }
+  .filterToggle summary::-webkit-details-marker { display: none; }
+  .filterToggle:not([open]) + .filters { display: none; }
+  .filterToggle[open] + .filters { margin-top: 1.25rem; padding: 1.25rem; border: 1px solid var(--rule); border-radius: var(--r-lg); background: var(--surface); }
+}

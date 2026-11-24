@@ -1,0 +1,32 @@
+.footer {
+  position: relative; margin-top: 6rem; font-size: var(--t-sm); color: var(--ink-2);
+  border-top: 1px solid var(--rule);
+  background: linear-gradient(to bottom, var(--paper-2), #eef2f8);
+}
+/* A single red margin rule across the top edge: the notebook motif, kept to one line. */
+.footer::before { content: ""; position: absolute; top: -1px; left: 0; width: min(9rem, 24vw); border-top: 2px solid rgb(217 83 74 / 0.55); }
+
+.grid { display: grid; grid-template-columns: 1.7fr repeat(3, minmax(0, 1fr)); gap: 2.5rem clamp(2rem, 5vw, 4.5rem); padding-block: 4rem 3rem; }
+
+.about { display: grid; align-content: start; gap: 0.9rem; max-width: 28rem; }
+.statement { margin-top: 0.4rem; font-family: var(--serif); font-size: var(--t-xl); line-height: 1.25; color: var(--ink); letter-spacing: -0.01em; text-wrap: balance; }
+.small { color: var(--ink-2); }
+.cta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.6rem; }
+.cta :global(.btn) { height: 42px; }
+
+.grid nav { display: grid; align-content: start; gap: 0.15rem; }
+.head { font-weight: 700; color: var(--ink); margin-bottom: 0.6rem; font-size: var(--t-sm); }
+.grid nav a { display: inline-block; padding: 0.22rem 0; text-decoration: none; color: var(--ink-2); transition: color 0.15s var(--ease), transform 0.15s var(--ease); }
+.grid nav a:hover { color: var(--royal); transform: translateX(2px); }
+
+.baseWrap { border-top: 1px solid var(--rule); }
+.base { display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.25rem 1.75rem; color: var(--muted); font-size: var(--t-xs); }
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr 1fr; padding-block: 3rem 2.25rem; }
+  .about { grid-column: 1 / -1; max-width: none; }
+}
+@media (max-width: 440px) {
+  .grid { grid-template-columns: 1fr 1fr; gap: 2rem 1.25rem; }
+  .grid nav:last-child { grid-column: 1 / -1; }
+}

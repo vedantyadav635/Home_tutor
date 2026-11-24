@@ -1,42 +1,167 @@
+/* HomeTutor design tokens. Light theme only, on purpose.
+   Concept: school stationery (ruled exercise books, margin line, worksheet blanks, timetable), done quietly. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #fbfcfe;
+  --paper-2: #f3f6fa;      /* quiet sections, hover rows */
+  --surface: #ffffff;
+  --ink: #18213a;          /* blue-black fountain-pen ink */
+  --ink-2: #485269;        /* secondary text */
+  --muted: #747d91;        /* captions, placeholders */
+  --rule: #e3e8f0;         /* hairlines, ruled paper lines */
+  --rule-strong: #cfd6e2;
+  --royal: #2140a8;        /* actions, links, Verified */
+  --royal-deep: #18307f;
+  --royal-wash: #edf1fd;
+  --highlight: #ffe680;    /* highlighter: selected filters only */
+  --margin: #d9534a;       /* notebook margin line, errors */
+  --margin-wash: #fdf0ef;
+  --ok: #1d7a4c;
+  --ok-wash: #e9f6ef;
+
+  --serif: var(--font-hedvig), "Iowan Old Style", Georgia, serif;
+  --sans: var(--font-figtree), "Segoe UI", system-ui, sans-serif;
+
+  /* Type scale (~1.25), body 17px */
+  --t-xs: 0.8125rem;  /* 13 */
+  --t-sm: 0.9375rem;  /* 15 */
+  --t-md: 1.0625rem;  /* 17 */
+  --t-lg: 1.25rem;    /* 20 */
+  --t-xl: 1.625rem;   /* 26 */
+  --t-2xl: 2.125rem;  /* 34 */
+  --t-3xl: 2.875rem;  /* 46 */
+  --t-4xl: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+
+  --r-sm: 8px;    /* inputs, small controls */
+  --r-md: 12px;   /* buttons */
+  --r-lg: 18px;   /* panels, dialogs */
+
+  --lift: 0 1px 2px rgb(24 33 58 / 0.05), 0 14px 36px -14px rgb(24 33 58 / 0.22);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --wrap: 1160px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
-html,
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-md);
+  line-height: 1.55;
+  font-synthesis: none; /* never fake bold or italic: the serif ships one weight */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.012em;
+  margin: 0;
+  font-optical-sizing: auto;
+}
+p { margin: 0; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+button, input, select, textarea { font: inherit; color: inherit; }
+::selection { background: var(--highlight); color: var(--ink); }
+
+:focus-visible { outline: 2px solid var(--royal); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { width: min(100% - 2.5rem, var(--wrap)); margin-inline: auto; }
+.visually-hidden {
+  position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  height: 46px; padding: 0 1.25rem;
+  border-radius: var(--r-md); border: 1px solid transparent;
+  font-weight: 600; font-size: var(--t-sm); text-decoration: none; cursor: pointer;
+  transition: background-color 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.18s var(--ease);
+}
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: 0.55; cursor: progress; }
+.btn-primary { background: var(--royal); color: #fff; }
+.btn-primary:hover { background: var(--royal-deep); }
+.btn-quiet { background: var(--surface); border-color: var(--rule-strong); color: var(--ink); }
+.btn-quiet:hover { border-color: var(--ink-2); }
+.btn-block { width: 100%; }
+
+.link { color: var(--royal); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.link:hover { text-decoration-thickness: 2px; }
+
+/* ---------- Forms ---------- */
+.field { display: grid; gap: 0.4rem; align-content: start; }
+.field > span { font-size: var(--t-sm); font-weight: 600; color: var(--ink); }
+.field small { color: var(--muted); font-size: var(--t-xs); }
+.input {
+  width: 100%; height: 46px; padding: 0 0.9rem;
+  background: var(--surface); border: 1px solid var(--rule-strong); border-radius: var(--r-sm);
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+textarea.input { height: auto; min-height: 112px; padding: 0.75rem 0.9rem; resize: vertical; line-height: 1.5; }
+select.input {
+  appearance: none; padding-right: 2.2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23485269' stroke-width='1.6'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 0.9rem center;
+}
+.input:hover { border-color: var(--ink-2); }
+.input:focus { outline: none; border-color: var(--royal); box-shadow: 0 0 0 3px var(--royal-wash); }
+.input[aria-invalid="true"] { border-color: var(--margin); }
+.field-error { color: var(--margin); font-size: var(--t-xs); font-weight: 500; }
+.form-error {
+  background: var(--margin-wash); color: #9b2c25; border-radius: var(--r-sm);
+  padding: 0.7rem 0.9rem; font-size: var(--t-sm);
+}
+
+/* ---------- Choice chips (checkbox/radio); selected = highlighter swipe ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.chip span {
+  display: inline-block; padding: 0.38rem 0.8rem; border-radius: 999px;
+  border: 1px solid var(--rule-strong); background-color: var(--surface);
+  background-image: linear-gradient(var(--highlight), var(--highlight));
+  background-repeat: no-repeat; background-size: 0% 100%; background-position: left;
+  font-size: var(--t-sm); color: var(--ink-2); cursor: pointer; user-select: none;
+  transition: background-size 0.32s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.chip input:hover + span { border-color: var(--ink-2); }
+.chip input:checked + span { background-size: 100% 100%; border-color: #e8cf5a; color: var(--ink); font-weight: 500; }
+.chip input:focus-visible + span { outline: 2px solid var(--royal); outline-offset: 2px; }
+
+/* ---------- Verified seal ---------- */
+.seal {
+  display: inline-flex; align-items: center; gap: 0.3rem;
+  font-family: var(--sans); color: var(--royal); font-size: var(--t-xs); font-weight: 600; white-space: nowrap;
+}
+.seal svg { flex: none; }
+
+/* ---------- Status pills ---------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.18rem 0.6rem; border-radius: 999px;
+  font-family: var(--sans); font-size: var(--t-xs); font-weight: 600; white-space: nowrap;
+  background: var(--paper-2); color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--rule);
+}
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.8; }
+.pill-new, .pill-pending { background: #fff7d6; color: #7a5b00; box-shadow: inset 0 0 0 1px #f1dc8b; }
+.pill-contacted { background: var(--royal-wash); color: var(--royal-deep); box-shadow: inset 0 0 0 1px #cdd8f7; }
+.pill-accepted, .pill-approved { background: var(--ok-wash); color: var(--ok); box-shadow: inset 0 0 0 1px #bfe3cf; }
+.pill-declined, .pill-rejected { background: var(--margin-wash); color: #9b2c25; box-shadow: inset 0 0 0 1px #f2c9c5; }
+
+.btn-sm { height: 36px; padding: 0 0.9rem; font-size: var(--t-xs); border-radius: 10px; }
+.btn-danger { background: var(--surface); border-color: #f0c4c0; color: #9b2c25; }
+.btn-danger:hover { border-color: var(--margin); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }

@@ -1,0 +1,32 @@
+.dialog {
+  width: min(100% - 2rem, 560px); max-height: calc(100dvh - 2rem);
+  padding: 0; border: 0; border-radius: var(--r-lg);
+  background: var(--surface); color: var(--ink); box-shadow: 0 30px 80px -20px rgb(24 33 58 / 0.45);
+}
+.dialog[open] { animation: rise 0.32s var(--ease); }
+.dialog::backdrop { background: rgb(24 33 58 / 0.32); backdrop-filter: blur(3px); }
+.dialog[open]::backdrop { animation: fade 0.32s var(--ease); }
+@keyframes rise { from { opacity: 0; transform: translateY(14px) scale(0.985); } }
+@keyframes fade { from { opacity: 0; } }
+
+.top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1.5rem 1.5rem 0; }
+.top h2 { font-size: var(--t-xl); }
+.close { flex: none; display: grid; place-items: center; width: 36px; height: 36px; margin: -0.35rem -0.5rem 0 0; border: 0; border-radius: 50%; background: none; color: var(--ink-2); cursor: pointer; }
+.close:hover { background: var(--paper-2); color: var(--ink); }
+
+.form { display: grid; gap: 1rem; padding: 1.25rem 1.5rem 1.5rem; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.optional { font-style: normal; font-weight: 400; color: var(--muted); margin-left: 0.25rem; }
+.note { font-size: var(--t-xs); color: var(--muted); text-align: center; }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+.sent { display: grid; justify-items: start; gap: 1rem; padding: 1.25rem 1.5rem 1.5rem; color: var(--ink-2); }
+.tick { color: var(--ok); }
+.tick circle { stroke-dasharray: 126; stroke-dashoffset: 126; animation: draw 0.5s var(--ease) forwards; }
+.tick path { stroke-dasharray: 30; stroke-dashoffset: 30; animation: draw 0.35s 0.35s var(--ease) forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+@media (max-width: 560px) {
+  .row, .row3 { grid-template-columns: 1fr; }
+}

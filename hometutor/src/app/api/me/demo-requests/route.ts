@@ -1,9 +1,9 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { apiError, dbError, requireUser } from "@/lib/api";
-import { REQUEST_COLUMNS, toReceivedRequest, toSentRequest } from "@/lib/mappers";
+import { receivedRequests, REQUEST_STATUSES, sentRequests } from "@/lib/requests";
 
-const Status = z.enum(["new", "contacted", "accepted", "declined", "closed"]);
+const Status = z.enum(REQUEST_STATUSES);
 
 // Tutors: requests received. Everyone else: requests they sent.
 export async function GET(req: NextRequest) {
@@ -19,32 +19,9 @@ export async function GET(req: NextRequest) {
   if (pErr) return dbError(pErr, "me.requests.role");
   const isTutor = profile?.role === "tutor";
 
-  if (isTutor) {
-    let q = supabase.from("demo_requests").select(REQUEST_COLUMNS).eq("tutor_id", user.id).order("created_at", { ascending: false }).limit(200);
-    if (status) q = q.eq("status", status.data);
-    const { data, error } = await q;
-    if (error) return dbError(error, "me.requests.received");
-    return NextResponse.json({ role: "tutor", requests: data.map(toReceivedRequest) });
-  }
-
-  let q = supabase
-    .from("demo_requests")
-    .select(`${REQUEST_COLUMNS}, tutors (full_name, slug)`)
-    .eq("parent_id", user.id)
-    .order("created_at", { ascending: false })
-    .limit(200);
-  if (status) q = q.eq("status", status.data);
-  const { data, error } = await q;
-  if (error) return dbError(error, "me.requests.sent");
-
-  // Parent: the tutor's phone comes only from the RPC, which itself checks accepted + caller.
-  const requests = await Promise.all(
-    data.map(async (r) => {
-      if (r.status !== "accepted") return toSentRequest(r, null);
-      const { data: phone, error: rpcErr } = await supabase.rpc("tutor_contact_for_request", { request_id: r.id });
-      if (rpcErr) console.error("[me.requests.phone]", rpcErr);
-      return toSentRequest(r, phone ?? null);
-    }),
-  );
-  return NextResponse.json({ role: "parent", requests });
+  const result = isTutor
+    ? await receivedRequests(supabase, user.id, status?.data)
+    : await sentRequests(supabase, user.id, status?.data);
+  if (result.error) return dbError(result.error, "me.requests");
+  return NextResponse.json({ role: isTutor ? "tutor" : "parent", requests: result.data });
 }
