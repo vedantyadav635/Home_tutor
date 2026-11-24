@@ -11,7 +11,7 @@
 
 .logo {
   display: inline-flex; align-items: center; gap: 0.55rem; text-decoration: none;
-  font-family: var(--serif); font-size: 1.5rem; letter-spacing: -0.015em; color: var(--ink);
+  font-family: var(--serif); font-size: 1.35rem; font-weight: 600; letter-spacing: -0.02em;
 }
 
 .nav { display: flex; gap: 1.6rem; font-size: var(--t-sm); }

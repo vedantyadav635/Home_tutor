@@ -18,8 +18,8 @@
   --ok: #1d7a4c;
   --ok-wash: #e9f6ef;
 
-  --serif: var(--font-hedvig), "Iowan Old Style", Georgia, serif;
-  --sans: var(--font-figtree), "Segoe UI", system-ui, sans-serif;
+  --serif: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --sans: var(--font-schibsted), "Segoe UI", system-ui, sans-serif;
 
   /* Type scale (~1.25), body 17px */
   --t-xs: 0.8125rem;  /* 13 */
@@ -53,7 +53,7 @@ body {
   font-family: var(--sans);
   font-size: var(--t-md);
   line-height: 1.55;
-  font-synthesis: none; /* never fake bold or italic: the serif ships one weight */
+  font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -142,7 +142,7 @@ select.input {
 /* ---------- Verified seal ---------- */
 .seal {
   display: inline-flex; align-items: center; gap: 0.3rem;
-  font-family: var(--sans); color: var(--royal); font-size: var(--t-xs); font-weight: 600; white-space: nowrap;
+  color: var(--royal); font-size: var(--t-xs); font-weight: 600; white-space: nowrap;
 }
 .seal svg { flex: none; }
 

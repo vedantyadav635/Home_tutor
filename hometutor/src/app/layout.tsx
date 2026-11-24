@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
-import { Figtree, Hedvig_Letters_Serif } from "next/font/google";
+import { Newsreader, Schibsted_Grotesk } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
-// Headings: a warm humanist serif with an optical-size axis (sharper at large sizes). One weight, no italic.
-const hedvig = Hedvig_Letters_Serif({
-  variable: "--font-hedvig",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   axes: ["opsz"],
 });
 
-// Body and interface: a friendly geometric sans that stays clear at small sizes and in Indian-English text.
-const figtree = Figtree({
-  variable: "--font-figtree",
+const schibsted = Schibsted_Grotesk({
+  variable: "--font-schibsted",
   subsets: ["latin"],
 });
 
@@ -24,7 +23,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${hedvig.variable} ${figtree.variable}`}>
+    <html lang="en-IN" className={`${newsreader.variable} ${schibsted.variable}`}>
       <body>
         <SiteHeader />
         <main id="main">{children}</main>
